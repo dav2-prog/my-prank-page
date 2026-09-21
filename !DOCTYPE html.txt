@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>免費領取 Discord Nitro 高級版！</title>
+    <style>
+        body {
+            background-color: #36393f; /* Discord 的深色背景 */
+            color: white;
+            font-family: sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            cursor: pointer;
+        }
+        .container {
+            text-align: center;
+            padding: 20px;
+            border: 1px solid #4f545c;
+            border-radius: 8px;
+            background-color: #2f3136;
+        }
+        button {
+            background-color: #5865F2;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        iframe {
+            display: none; /* 隱藏影片視窗，只放出聲音 */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="gift-box">
+        <h2>🎁 恭喜！你收到了一個 Discord Nitro 禮物</h2>
+        <p>點擊下方按鈕立即開通 3 個月高級版權益</p>
+        <button onclick="playPrank()">立即領取 Nitro</button>
+    </div>
+
+    <!-- 這裡放入要播放的音樂，目前預設為經典的瑞克搖（Rickroll） -->
+    <div id="video-container"></div>
+
+    <script>
+        function playPrank() {
+            // 由於瀏覽器安全限制，必須由用戶「點擊」後才能自動播放音樂
+            // 下方的 'dQw4w9WgXcQ' 是 Rickroll 的 YouTube 影片 ID，你可以換成任何你想要的 YouTube 影片 ID
+            const videoId = 'kXErfkiXMJs'; 
+            
+            const container = document.getElementById('video-container');
+            container.innerHTML = `<iframe src="https://youtube.com{videoId}?autoplay=1&mute=0" allow="autoplay"></iframe>`;
+            
+            // 點擊後改變畫面文字，讓惡作劇更明顯
+            document.getElementById('gift-box').innerHTML = "<h2>🤣 你被騙了！哈！</h2><p>天下沒有免費的 Nitro，下次不要亂點網址囉！</p>";
+        }
+    </script>
+
+</body>
+</html>
