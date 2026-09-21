@@ -14,6 +14,7 @@
             justify-content: center;
             height: 100vh;
             margin: 0;
+            overflow: hidden; /* 防止全螢幕畫面出現捲軸 */
         }
         .nitro-card {
             background-color: #2f3136;
@@ -23,73 +24,68 @@
             width: 400px;
             text-align: center;
             box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            z-index: 10; /* 確保按鈕在最上層 */
         }
-        h2 {
-            margin-top: 0;
-            font-size: 22px;
-        }
-        p {
-            color: #b9bbbe;
-            font-size: 14px;
-            line-height: 1.5;
-        }
+        h2 { margin-top: 0; font-size: 22px; }
+        p { color: #b9bbbe; font-size: 14px; line-height: 1.5; }
         button {
-            background-color: #5865F2;
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            font-size: 16px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: bold;
-            width: 100%;
-            margin-top: 20px;
-            transition: background-color 0.2s;
+            background-color: #5865F2; color: white; border: none;
+            padding: 12px 24px; font-size: 16px; border-radius: 4px;
+            cursor: pointer; font-weight: bold; width: 100%; margin-top: 20px;
         }
-        button:hover {
-            background-color: #4752C4;
-        }
-        /* 當按鈕點擊後，這個播放器才會顯示在卡片下方 */
-        audio {
-            width: 100%;
-            margin-top: 20px;
-            display: none;
+        button:hover { background-color: #4752C4; }
+
+        /* 🖼️ 全螢幕背景畫面設定 */
+        #boss-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            /* 預設使用一張 Black Souls 的暗黑風驚悚背景，你也可以換成你喜歡的圖片網址 */
+            background-image: url('https://unsplash.com');
+            background-size: cover;
+            background-position: center;
+            z-index: 1;
+            display: none; /* 預設隱藏，點擊按鈕後才顯示 */
         }
     </style>
 </head>
 <body>
 
+    <!-- 惡作劇觸發後會瞬間填滿全螢幕的背景 -->
+    <div id="boss-bg"></div>
+
     <div class="nitro-card" id="main-card">
         <h2>🎁 收到 Nitro 禮物！</h2>
         <p>來自 <b>Discord 官方系統</b> 的 3 個月 Nitro 高級版免費贈送。</p>
         <button onclick="startPrank()">立即兌換禮物</button>
-
-        <!-- 原生播放器元件，預設隱藏 -->
-        <audio id="my-audio" controls src="boss.mp3"></audio>
     </div>
+
+    <!-- 原生播放器元件，保持隱藏即可 -->
+    <audio id="my-audio" src="boss.mp3"></audio>
 
     <script>
         function startPrank() {
             const audio = document.getElementById('my-audio');
-
-            // 1. 強制將音樂跳到第 6 秒
+            const bgElement = document.getElementById('boss-bg');
+            
+            // 1. 顯示全螢幕 Boss 戰畫面
+            bgElement.style.display = "block";
+            
+            // 2. 音樂跳到第 6 秒並大聲播放
             audio.currentTime = 6;
-
-            // 2. 顯示播放器，如果瀏覽器耍賴沒聲音，用戶可以直接在畫面上點播放或拉大音量
-            audio.style.display = "block";
-
-            // 3. 嘗試直接大聲播放
             audio.play().catch(function(error) {
-                console.log("瀏覽器阻擋了自動播放，請手動點擊下方播放鈕：", error);
+                console.log("播放被瀏覽器阻擋:", error);
             });
-
-            // 4. 修改卡片文字
-            document.getElementById('main-card').querySelector('h2').style.color = '#ff3333';
-            document.getElementById('main-card').querySelector('h2').innerText = '⚠️ 進入未知領域！';
-            document.getElementById('main-card').querySelector('p').innerText = '天下沒有免費的 Nitro！你觸發了隱藏 Boss 戰！如果耳朵沒聽到聲音，請點擊下方播放器的播放鍵並拉大音量囉！';
-
-            // 隱藏原本的藍色按鈕
-            document.getElementById('main-card').querySelector('button').style.display = 'none';
+            
+            // 3. 將中間的卡片內容徹底換成 Boss 戰受詛咒的搞笑文字
+            document.getElementById('main-card').style.borderColor = '#ff3333';
+            document.getElementById('main-card').innerHTML = `
+                <h1 style="color: #ff3333; font-size: 28px; margin: 0; letter-spacing: 2px;">⚠️ BOSS BATTLE ⚠️</h1>
+                <h2 style="color: #fff; margin-top: 15px;">食屍鬼・梅莉菲利亞</h2>
+                <p style="color: #ffaaaa; font-weight: bold;">天下沒有免費的 Nitro！你已觸發隱藏頭目戰！</p>
+            `;
         }
     </script>
 
