@@ -49,13 +49,11 @@
         button:hover {
             background-color: #4752C4;
         }
-        /* 完全隱藏 YouTube 播放器，只保留聲音 */
-        #video-iframe {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            opacity: 0;
-            pointer-events: none;
+        /* 當按鈕點擊後，這個播放器才會顯示在卡片下方 */
+        audio {
+            width: 100%;
+            margin-top: 20px;
+            display: none;
         }
     </style>
 </head>
@@ -65,33 +63,35 @@
         <h2>🎁 收到 Nitro 禮物！</h2>
         <p>來自 <b>Discord 官方系統</b> 的 3 個月 Nitro 高級版免費贈送。</p>
         <button onclick="startPrank()">立即兌換禮物</button>
+
+        <!-- 原生播放器元件，預設隱藏 -->
+        <audio id="my-audio" controls src="boss.mp3"></audio>
     </div>
 
-    <!-- 點擊按鈕後，這裡會被動態注入 Black Souls 2 的音樂播放器 -->
-    <div id="audio-container"></div>
-
     <script>
- function startPrank() {
-    // 建立一個原生的音訊物件，替換為您找到的音樂直連 .mp3 網址
-    const audio = new Audio('boss.mp3');
-    
-    // 設定從第 6 秒開始播放
-    audio.currentTime = 6;
-    
-    // 點擊後立刻播放音樂（原生音訊在點擊後百分之百可以大聲播放）
-    audio.play().catch(function(error) {
-        console.log("播放被瀏覽器阻擋:", error);
-    });
-    
-    // 修改畫面上的文字，進入黑魂魔王戰惡作劇效果
-    document.getElementById('main-card').innerHTML = `
-        <h2 style="color: #ff3333;">⚠️ 進入未知領域！</h2>
-        <p>天下沒有免費的 Nitro！你觸發了隱藏 Boss 戰！下次看到好康連結要多加注意資安囉！</p>
-    `;
-}
+        function startPrank() {
+            const audio = document.getElementById('my-audio');
 
+            // 1. 強制將音樂跳到第 6 秒
+            audio.currentTime = 6;
+
+            // 2. 顯示播放器，如果瀏覽器耍賴沒聲音，用戶可以直接在畫面上點播放或拉大音量
+            audio.style.display = "block";
+
+            // 3. 嘗試直接大聲播放
+            audio.play().catch(function(error) {
+                console.log("瀏覽器阻擋了自動播放，請手動點擊下方播放鈕：", error);
+            });
+
+            // 4. 修改卡片文字
+            document.getElementById('main-card').querySelector('h2').style.color = '#ff3333';
+            document.getElementById('main-card').querySelector('h2').innerText = '⚠️ 進入未知領域！';
+            document.getElementById('main-card').querySelector('p').innerText = '天下沒有免費的 Nitro！你觸發了隱藏 Boss 戰！如果耳朵沒聽到聲音，請點擊下方播放器的播放鍵並拉大音量囉！';
+
+            // 隱藏原本的藍色按鈕
+            document.getElementById('main-card').querySelector('button').style.display = 'none';
+        }
     </script>
 
 </body>
 </html>
-
