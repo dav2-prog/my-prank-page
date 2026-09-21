@@ -49,7 +49,7 @@
         button:hover {
             background-color: #4752C4;
         }
-        /* 隱藏 YouTube 影片，只保留聲音 */
+        /* 完全隱藏 YouTube 播放器，只保留聲音 */
         #video-iframe {
             position: absolute;
             width: 1px;
@@ -67,25 +67,26 @@
         <button onclick="startPrank()">立即兌換禮物</button>
     </div>
 
-    <!-- 點擊按鈕後，這裡會被動態注入 YouTube 音訊 -->
+    <!-- 點擊按鈕後，這裡會被動態注入 Black Souls 2 的音樂播放器 -->
     <div id="audio-container"></div>
 
     <script>
         function startPrank() {
-            // 經典瑞克搖影片 ID: kXErfkiXMJs&t
-            const videoId = 'kXErfkiXMJs&t';
+            // 已經確實綁定 Black Souls 2 BGM 影片 ID
+            const videoId = 'kXErfkiXMJs';
             const container = document.getElementById('audio-container');
-
-            // 利用嵌入式播放器，並開啟自動播放 (autoplay=1)
-            container.innerHTML = `<iframe id="video-iframe" src="https://www.youtube.com/watch?v=kXErfkiXMJs>`;
-
-            // 修改畫面上的文字，揭穿惡作劇
+            
+            // 播放器參數：autoplay=1 自動播放，start=6 從第 6 秒音樂正式激昂處開始
+            container.innerHTML = `<iframe id="video-iframe" src="https://youtube.com{videoId}?autoplay=1&start=6&controls=0" allow="autoplay"></iframe>`;
+            
+            // 修改畫面上的文字，進入黑魂魔王戰惡作劇效果
             document.getElementById('main-card').innerHTML = `
-                <h2>🤣 你被 Rickroll 了！</h2>
-                <p>天下沒有免費的 Nitro！下次看到好康連結要多加注意資安，不要亂點囉！</p>
+                <h2 style="color: #ff3333;">⚠️ 進入未知領域！</h2>
+                <p>天下沒有免費的 Nitro！你觸發了隱藏 Boss 戰！下次看到好康連結要多加注意資安囉！</p>
             `;
         }
     </script>
 
 </body>
 </html>
+
