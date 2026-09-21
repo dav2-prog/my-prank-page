@@ -71,20 +71,25 @@
     <div id="audio-container"></div>
 
     <script>
-        function startPrank() {
-            // 已經確實綁定 Black Souls 2 BGM 影片 ID
-            const videoId = 'kXErfkiXMJs';
-            const container = document.getElementById('audio-container');
-            
-            // 播放器參數：autoplay=1 自動播放，start=6 從第 6 秒音樂正式激昂處開始
-            container.innerHTML = `<iframe id="video-iframe" src="https://youtube.com{videoId}?autoplay=1&start=6&controls=0" allow="autoplay"></iframe>`;
-            
-            // 修改畫面上的文字，進入黑魂魔王戰惡作劇效果
-            document.getElementById('main-card').innerHTML = `
-                <h2 style="color: #ff3333;">⚠️ 進入未知領域！</h2>
-                <p>天下沒有免費的 Nitro！你觸發了隱藏 Boss 戰！下次看到好康連結要多加注意資安囉！</p>
-            `;
-        }
+ function startPrank() {
+    // 建立一個原生的音訊物件，替換為您找到的音樂直連 .mp3 網址
+    const audio = new Audio('https://您的音樂檔案伺服器網址/boss.mp3');
+    
+    // 設定從第 6 秒開始播放
+    audio.currentTime = 6;
+    
+    // 點擊後立刻播放音樂（原生音訊在點擊後百分之百可以大聲播放）
+    audio.play().catch(function(error) {
+        console.log("播放被瀏覽器阻擋:", error);
+    });
+    
+    // 修改畫面上的文字，進入黑魂魔王戰惡作劇效果
+    document.getElementById('main-card').innerHTML = `
+        <h2 style="color: #ff3333;">⚠️ 進入未知領域！</h2>
+        <p>天下沒有免費的 Nitro！你觸發了隱藏 Boss 戰！下次看到好康連結要多加注意資安囉！</p>
+    `;
+}
+
     </script>
 
 </body>
