@@ -64,32 +64,39 @@
     <!-- 惡作劇觸發後會瞬間填滿全螢幕的背景 -->
     <div id="boss-bg"></div>
 
-    <!-- 這裡保證回歸初始未被整的 Discord 兌換卡片畫面 -->
+    <!-- 初始的 Discord 兌換卡片畫面 -->
     <div class="nitro-card" id="main-card">
         <h2>🎁 收到 Nitro 禮物！</h2>
         <p>來自 <b>Discord 官方系統</b> 的 3 個月 Nitro 高級版免費贈送。</p>
         <button onclick="startPrank()">立即兌換禮物</button>
     </div>
 
-    <!-- 原生播放器元件，預設隱藏 -->
-    <audio id="my-audio" src="boss.mp3"></audio>
+    <!-- 原生播放器元件，設定預先載入且預設為不靜音 -->
+    <audio id="my-audio" src="boss.mp3" preload="auto"></audio>
 
     <script>
         function startPrank() {
             const audio = document.getElementById('my-audio');
             const bgElement = document.getElementById('boss-bg');
             
-            // 1. 顯示全螢幕 Boss 戰畫面（加入隨機參數強迫重載圖片）
+            // 1. 顯示全螢幕 Boss 畫面的同時強迫重新載入圖片
             bgElement.style.backgroundImage = "url('boss.jpg?v=" + new Date().getTime() + "')";
             bgElement.style.display = "block";
             
-            // 2. 音樂跳到第 6 秒並爆發播放
-            audio.currentTime = 6;
-            audio.play().catch(function(error) {
-                console.log("自動播放被瀏覽器攔截:", error);
-            });
+            // 2. 徹底移除原本的 6 秒設定，強迫從 0 秒（最開頭）大聲播放音樂
+            audio.currentTime = 0; 
+            audio.volume = 1.0; // 強制設定音量最大度
             
-            // 3. 將中間的卡片內容切換成黑魂魔王戰警告文字，徹底移除重新兌換按鈕
+            // 3. 點擊按鈕的瞬間立即觸發原生的播放行為
+            var playPromise = audio.play();
+            
+            if (playPromise !== undefined) {
+                playPromise.catch(function(error) {
+                    console.log("自動播放被瀏覽器攔截:", error);
+                });
+            }
+            
+            // 4. 將中間的卡片內容切換成黑魂魔王戰警告文字
             document.getElementById('main-card').style.borderColor = '#ff3333';
             document.getElementById('main-card').innerHTML = `
                 <h1 style="color: #ff3333; font-size: 28px; margin: 0; letter-spacing: 2px;">⚠️ BOSS BATTLE ⚠️</h1>
@@ -101,3 +108,4 @@
 
 </body>
 </html>
+
