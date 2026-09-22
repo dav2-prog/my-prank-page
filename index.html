@@ -3,7 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Discord</title>
+    
+    <!-- 👁️ 關鍵！以下是欺騙 Discord 畫出官方紫色禮物卡片的 Meta 標籤 -->
+    <title>有人送出了一個禮物！</title>
+    <meta property="og:title" content="-# 有人送出了一個禮物！">
+    <meta property="og:description" content="寄件人：_nik0.w.p &#10;27 小時後過期">
+    <meta property="og:type" content="website">
+    <!-- 下方這張是 Discord 官方禮物盒的圖片網址，會讓卡片右邊跑出紫色禮物盒 -->
+    <meta property="og:image" content="https://website-files.com">
+    <meta name="theme-color" content="#2f3136"> <!-- 讓卡片邊框呈現 Discord 深色底色 -->
+
     <style>
         body {
             background-color: #36393f;
@@ -14,17 +23,20 @@
             justify-content: center;
             height: 100vh;
             margin: 0;
-            overflow: hidden; /* 防止全螢幕畫面出現捲軸 */
+            overflow: hidden;
         }
         .nitro-card {
-            background-color: #2f3136;
-            border: 1px solid #202225;
-            border-radius: 8px;
-            padding: 30px;
-            width: 400px;
+            background-color: rgba(47, 49, 54, 0.7);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 51, 51, 0.3);
+            border-radius: 12px;
+            padding: 25px;
+            width: 340px;
             text-align: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-            z-index: 10; /* 確保按鈕在最上層 */
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+            z-index: 10;
+            transition: all 0.3s ease;
         }
         h2 { margin-top: 0; font-size: 22px; }
         p { color: #b9bbbe; font-size: 14px; line-height: 1.5; }
@@ -35,65 +47,17 @@
         }
         button:hover { background-color: #4752C4; }
 
-        /* 🖼️ 全螢幕背景畫面設定 */
         #boss-bg {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            /* 預設使用一張 Black Souls 的暗黑風驚悚背景，你也可以換成你喜歡的圖片網址 */
-            /* 修改成這樣 */
             background-image: url('boss.jpg');
             background-size: cover;
             background-position: center;
             z-index: 1;
-            display: none; /* 預設隱藏，點擊按鈕後才顯示 */
+            display: none;
         }
     </style>
 </head>
-<body>
-
-    <!-- 惡作劇觸發後會瞬間填滿全螢幕的背景 -->
-    <div id="boss-bg"></div>
-
-    <div class="nitro-card" id="main-card">
-        <h2>🎁 收到 Nitro 禮物！</h2>
-        <p>來自 <b>Discord 官方系統</b> 的 3 個月 Nitro 高級版免費贈送。</p>
-        <button onclick="startPrank()">立即兌換禮物</button>
-    </div>
-
-    <!-- 原生播放器元件，保持隱藏即可 -->
-    <audio id="my-audio" src="boss.mp3"></audio>
-
-    <script>
-        function startPrank() {
-    const audio = document.getElementById('my-audio');
-    const bgElement = document.getElementById('boss-bg');
-    
-    // 1. 強制重載圖片與播放音樂
-    bgElement.style.backgroundImage = "url('boss.jpg?v=" + new Date().getTime() + "')";
-    bgElement.style.display = "block";
-    audio.currentTime = 6;
-    audio.play().catch(function(error) {
-        console.log("播放被瀏覽器阻擋:", error);
-    });
-    
-    // 2. 將中間的卡片內容徹底換成 Boss 戰警示文字，並加入您的專屬連結按鈕
-    document.getElementById('main-card').style.borderColor = '#ff3333';
-    document.getElementById('main-card').innerHTML = `
-        <h1 style="color: #ff3333; font-size: 28px; margin: 0; letter-spacing: 2px;">⚠️ BOSS BATTLE ⚠️</h1>
-        <h2 style="color: #fff; margin-top: 15px;">食屍鬼・梅莉菲利亞</h2>
-        <p style="color: #ffaaaa; font-weight: bold;">天下沒有免費的 Nitro！你已觸發隱藏頭目戰！</p>
-        
-        <!-- 🔗 這裡成功換上了您指定的 Discord 官方禮物顯示文字與跳轉連結 -->
-        <a href="https://discord.gift" target="_blank" style="text-decoration: none;">
-            <button style="background-color: #248046; margin-top: 10px;">重試兌換：discord.gift/DeqWj86auIYp</button>
-        </a>
-    `;
-        }
-        
-    </script>
-
-</body>
-</html>
