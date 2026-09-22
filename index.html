@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
+    <!-- 👁️ 完美欺騙 Discord 畫出官方禮物卡片的 Meta 標籤 -->
     <title>有人送出了一個禮物！</title>
     <meta property="og:title" content="有人送出了一個禮物！">
     <meta property="og:description" content="寄件人：tamamo704&#10;27 小時後過期">
@@ -59,13 +60,18 @@
     </style>
 </head>
 <body>
+
+    <!-- 惡作劇觸發後會瞬間填滿全螢幕的背景 -->
     <div id="boss-bg"></div>
-    
+
+    <!-- 這裡保證回歸初始未被整的 Discord 兌換卡片畫面 -->
     <div class="nitro-card" id="main-card">
         <h2>🎁 收到 Nitro 禮物！</h2>
         <p>來自 <b>Discord 官方系統</b> 的 3 個月 Nitro 高級版免費贈送。</p>
         <button onclick="startPrank()">立即兌換禮物</button>
-    </divine 
+    </div>
+
+    <!-- 原生播放器元件，預設隱藏 -->
     <audio id="my-audio" src="boss.mp3"></audio>
 
     <script>
@@ -73,14 +79,17 @@
             const audio = document.getElementById('my-audio');
             const bgElement = document.getElementById('boss-bg');
             
+            // 1. 顯示全螢幕 Boss 戰畫面（加入隨機參數強迫重載圖片）
             bgElement.style.backgroundImage = "url('boss.jpg?v=" + new Date().getTime() + "')";
             bgElement.style.display = "block";
             
-            audio.currentTime = 3;
+            // 2. 音樂跳到第 6 秒並爆發播放
+            audio.currentTime = 6;
             audio.play().catch(function(error) {
                 console.log("自動播放被瀏覽器攔截:", error);
             });
             
+            // 3. 將中間的卡片內容切換成黑魂魔王戰警告文字，徹底移除重新兌換按鈕
             document.getElementById('main-card').style.borderColor = '#ff3333';
             document.getElementById('main-card').innerHTML = `
                 <h1 style="color: #ff3333; font-size: 28px; margin: 0; letter-spacing: 2px;">⚠️ BOSS BATTLE ⚠️</h1>
