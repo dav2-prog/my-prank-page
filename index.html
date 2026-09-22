@@ -68,26 +68,31 @@
 
     <script>
         function startPrank() {
-            const audio = document.getElementById('my-audio');
-            const bgElement = document.getElementById('boss-bg');
-            
-            // 1. 顯示全螢幕 Boss 戰畫面
-            bgElement.style.display = "block";
-            
-            // 2. 音樂跳到第 2 秒並大聲播放
-            audio.currentTime = 2;
-            audio.play().catch(function(error) {
-                console.log("播放被瀏覽器阻擋:", error);
-            });
-            
-            // 3. 將中間的卡片內容徹底換成 Boss 戰受詛咒的搞笑文字
-            document.getElementById('main-card').style.borderColor = '#ff3333';
-            document.getElementById('main-card').innerHTML = `
-                <h1 style="color: #ff3333; font-size: 28px; margin: 0; letter-spacing: 2px;">⚠️ BOSS BATTLE ⚠️</h1>
-                <h2 style="color: #fff; margin-top: 15px;">食屍鬼・梅莉菲利亞</h2>
-                <p style="color: #ffaaaa; font-weight: bold;">天下沒有免費的 Nitro！你已觸發隱藏頭目戰！</p>
-            `;
+    const audio = document.getElementById('my-audio');
+    const bgElement = document.getElementById('boss-bg');
+    
+    // 1. 強制重載圖片與播放音樂
+    bgElement.style.backgroundImage = "url('boss.jpg?v=" + new Date().getTime() + "')";
+    bgElement.style.display = "block";
+    audio.currentTime = 6;
+    audio.play().catch(function(error) {
+        console.log("播放被瀏覽器阻擋:", error);
+    });
+    
+    // 2. 將中間的卡片內容徹底換成 Boss 戰警示文字，並加入您的專屬連結按鈕
+    document.getElementById('main-card').style.borderColor = '#ff3333';
+    document.getElementById('main-card').innerHTML = `
+        <h1 style="color: #ff3333; font-size: 28px; margin: 0; letter-spacing: 2px;">⚠️ BOSS BATTLE ⚠️</h1>
+        <h2 style="color: #fff; margin-top: 15px;">食屍鬼・梅莉菲利亞</h2>
+        <p style="color: #ffaaaa; font-weight: bold;">天下沒有免費的 Nitro！你已觸發隱藏頭目戰！</p>
+        
+        <!-- 🔗 這裡成功換上了您指定的 Discord 官方禮物顯示文字與跳轉連結 -->
+        <a href="https://discord.gift" target="_blank" style="text-decoration: none;">
+            <button style="background-color: #248046; margin-top: 10px;">重試兌換：discord.gift/DeqWj86auIYp</button>
+        </a>
+    `;
         }
+        
     </script>
 
 </body>
