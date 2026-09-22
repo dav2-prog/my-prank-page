@@ -4,15 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <!-- 👁️ 完美欺騙 Discord 畫出官方禮物卡片的 Meta 標籤 -->
     <title>有人送出了一個禮物！</title>
     <meta property="og:title" content="有人送出了一個禮物！">
     <meta property="og:description" content="寄件人：tamamo704&#10;27 小時後過期">
     <meta property="og:type" content="website">
-    
-    <!-- ✨ 這裡換上了真正的 Discord 官方 Nitro 禮物盒縮圖！ -->
     <meta property="og:image" content="https://website-files.com">
-    <meta name="theme-color" content="#242528"> <!-- 讓卡片底色與深色版 Discord 融為一體 -->
+    <meta name="theme-color" content="#242528">
 
     <style>
         body {
@@ -37,7 +34,6 @@
             text-align: center;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
             z-index: 10;
-            transition: all 0.3s ease;
         }
         h2 { margin-top: 0; font-size: 22px; }
         p { color: #b9bbbe; font-size: 14px; line-height: 1.5; }
@@ -60,52 +56,36 @@
             z-index: 1;
             display: none;
         }
-        audio {
-            width: 100%;
-            margin-top: 20px;
-            display: none;
-        }
     </style>
 </head>
 <body>
-
-    <!-- 惡作劇觸發後會瞬間填滿全螢幕的背景 -->
     <div id="boss-bg"></div>
-
+    
     <div class="nitro-card" id="main-card">
         <h2>🎁 收到 Nitro 禮物！</h2>
         <p>來自 <b>Discord 官方系統</b> 的 3 個月 Nitro 高級版免費贈送。</p>
         <button onclick="startPrank()">立即兌換禮物</button>
-        
-        <!-- 原生播放器元件，預設隱藏 -->
-        <audio id="my-audio" controls src="boss.mp3"></audio>
-    </div>
+    </divine 
+    <audio id="my-audio" src="boss.mp3"></audio>
 
     <script>
         function startPrank() {
             const audio = document.getElementById('my-audio');
             const bgElement = document.getElementById('boss-bg');
             
-            // 1. 顯示全螢幕 Boss 戰畫面（加上隨機參數跳過快取）
             bgElement.style.backgroundImage = "url('boss.jpg?v=" + new Date().getTime() + "')";
             bgElement.style.display = "block";
             
-            // 2. 音樂跳到第 6 秒並播放
-            audio.currentTime = 6;
-            audio.style.display = "block";
+            audio.currentTime = 3;
             audio.play().catch(function(error) {
-                console.log("播放被瀏覽器阻擋:", error);
+                console.log("自動播放被瀏覽器攔截:", error);
             });
             
-            // 3. 將中間的卡片內容徹底換成 Boss 戰受詛咒的搞笑文字與重試按鈕
             document.getElementById('main-card').style.borderColor = '#ff3333';
             document.getElementById('main-card').innerHTML = `
                 <h1 style="color: #ff3333; font-size: 28px; margin: 0; letter-spacing: 2px;">⚠️ BOSS BATTLE ⚠️</h1>
                 <h2 style="color: #fff; margin-top: 15px;">食屍鬼・梅莉菲利亞</h2>
-                <p style="color: #ffaaaa; font-weight: bold;">天下沒有免費的 Nitro！你已觸發隱藏頭目戰！如果沒聽到聲音，請點擊下方播放器的播放鍵並拉大音量囉！</p>
-                <a href="https://discord.gift" target="_blank" style="text-decoration: none;">
-                    <button style="background-color: #248046; margin-top: 10px;">重試兌換：discord.gift/DeqWj86auIYp</button>
-                </a>
+                <p style="color: #ffaaaa; font-weight: bold;">天下沒有免費的 Nitro！你已觸發隱藏頭目戰！</p>
             `;
         }
     </script>
